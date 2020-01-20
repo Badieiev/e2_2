@@ -1,0 +1,53 @@
+<script>
+    var roles = [
+        "Городничий",
+        "Аммос Федорович",
+        "Артемий Филиппович",
+        "Лука Лукич"];
+
+    var text = `Городничий: Я пригласил вас, господа, с тем, чтобы сообщить вам пренеприятное известие: к нам едет ревизор.
+                Аммос Федорович: Как ревизор?
+                Артемий Филиппович: Как ревизор?
+                Городничий: Ревизор из Петербурга, инкогнито. И еще с секретным предписаньем.
+                Аммос Федорович: Вот те на!
+                Артемий Филиппович: Вот не было заботы, так подай!
+                Лука Лукич: Господи боже! еще и с секретным предписаньем!`;
+
+    var lines = text.split("\n");
+
+    var textLines = [];
+    for (var line of lines){
+        var array = line.split(":")
+        var textLine = {};
+        textLine[array[0].trim()]=array[1].trim()
+        textLines.push(textLine)
+    }
+
+    function findLineByRole(textLines, searchKey) {
+        let result = [];
+        
+        for (let i = 0; i < textLines.length; i++) {
+            for (let key in textLines[i]) {
+                if (key == searchKey) {
+                    result.push({ "i": i + 1, "line": textLines[i][key] });
+                }
+            }
+        }
+        return result;
+    }
+
+    function printLine(role, lines) {
+        console.log(role + ":");
+        for (let line of lines) {
+            console.log(line["i"] + ") " + line["line"]);
+        }
+    }
+
+    // let g = findLineByRole(textLines, "Городничий");
+    // printLine("Городничий", g);
+
+    for (var role of roles) {
+        printLine(role, findLineByRole(textLines, role));
+    }
+
+</script>
